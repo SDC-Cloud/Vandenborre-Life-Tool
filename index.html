@@ -315,7 +315,7 @@
   <div class="right-col" style="display:flex; flex-direction:column; gap:16px;">
     <div class="price-tag">
       <div class="head">
-        <p class="eyebrow">Abonnement</p>
+        <p class="eyebrow">Onderhoudscontract</p>
         <p class="amount" id="monthly-amount">14,99 € / maand</p>
         <p class="tv-note" id="tv-note" style="display:none;">TV-tarief van toepassing</p>
       </div>
@@ -330,7 +330,7 @@
           </div>
           <p class="fine-print" id="per-month-note">Voeg toestellen toe</p>
         </div>
-        <div class="row-between divider"><span class="label">Jaarbedrag abonnement</span><span class="value" id="annual-value">€ 0</span></div>
+        <div class="row-between divider"><span class="label">Jaarbedrag onderhoudscontract</span><span class="value" id="annual-value">€ 0</span></div>
         <div class="promo-box">
           <div class="row-between" style="margin-bottom:8px;">
             <span class="label">Promo toepassen</span>
@@ -838,7 +838,7 @@
         <tr class="p-total"><td>Totale waarde park</td><td></td><td class="num">${fmt(totalValue)}</td></tr>
       </table>`}
 
-      <h2>Abonnement</h2>
+      <h2>Onderhoudscontract</h2>
       <div class="p-grid">
         <div class="row"><span>Maandprijs${hasTV ? " (TV-tarief)" : ""}</span><b>${fmt(monthlyPrice)} / maand</b></div>
         <div class="row"><span>Prijs per toestel per dag</span><b>${count > 0 ? fmt(perDeviceDay) : "—"}</b></div>
@@ -859,7 +859,7 @@
       </div>` : ""}
 
       <div class="p-highlight">
-        <span class="lbl">Vanden Borre Life — All-in abonnement voor uw volledige toestellenpark.</span>
+        <span class="lbl">Vanden Borre Life — All-in onderhoudscontract voor uw volledige toestellenpark.</span>
         <span class="val">${fmt(monthlyPrice)} / maand</span>
       </div>
 
