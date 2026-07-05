@@ -784,10 +784,10 @@
   };
 
   const REPAIR_DEFS = [
-    { key: "klein", label: "Kleine herstelling", price: 180 },
-    { key: "groot", label: "Grote herstelling", price: 250 },
-    { key: "levering", label: "Leveringskosten", price: 19 },
-    { key: "wisselstuk", label: "Wisselstuk via shop", price: 48 },
+    { key: "klein", label: "Kleine herstelling", price: 180, star: true },
+    { key: "groot", label: "Grote herstelling", price: 250, star: true },
+    { key: "levering", label: "Leveringskosten", price: 19, star: false },
+    { key: "wisselstuk", label: "Wisselstuk via shop", price: 48, star: true },
   ];
 
   function printSummary() {
@@ -822,7 +822,7 @@
     const repairRows = REPAIR_DEFS.filter(d => repairs[d.key] > 0).map(d => `
       <tr>
         <td>${d.label}</td>
-        <td class="num">${repairs[d.key]} × ${fmt(d.price)}</td>
+        <td class="num">${repairs[d.key]} × ${fmt(d.price)}${d.star ? "*" : ""}</td>
         <td class="num">${fmt(repairs[d.key] * d.price)}</td>
       </tr>`).join("");
 
@@ -872,7 +872,7 @@
         <div class="p-benefit-card"><img src="${PRINT_BENEFIT_ICONS.terugbetaling}" alt=""><span>Toestel onherstelbaar? We betalen je het volledige aankoopbedrag terug!</span></div>
       </div>
 
-      <p class="p-note">Rekenregel: 14,99 €/maand, of 16,99 €/maand zodra er een TV in het park zit. Prijs per toestel per dag = (abonnementsprijs ÷ aantal toestellen) ÷ 30 dagen. Deze simulatie is indicatief en vormt geen contractueel aanbod. Duurzaamheidsscores: barometer.vandenborre.be (editie ${BAROMETER_YEAR}).</p>
+      <p class="p-note">Rekenregel: 14,99 €/maand, of 16,99 €/maand zodra er een TV in het park zit. Prijs per toestel per dag = (abonnementsprijs ÷ aantal toestellen) ÷ 30 dagen. De vermelde herstelprijzen zijn indicatief en gebaseerd op gemiddelde marktprijzen; de uiteindelijke kostprijs kan variëren afhankelijk van het merk, model en de aard van de herstelling. Deze simulatie is indicatief en vormt geen contractueel aanbod. Duurzaamheidsscores: barometer.vandenborre.be (editie ${BAROMETER_YEAR}).</p>
     `;
 
     // Wacht tot alle icoontjes op de afdrukpagina geladen én gedecodeerd zijn
