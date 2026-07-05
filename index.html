@@ -873,7 +873,20 @@
       <p class="p-note">Rekenregel: 14,99 €/maand, of 16,99 €/maand zodra er een TV in het park zit. Prijs per toestel per dag = (abonnementsprijs ÷ aantal toestellen) ÷ 30 dagen. Deze simulatie is indicatief en vormt geen contractueel aanbod. Duurzaamheidsscores: barometer.vandenborre.be (editie ${BAROMETER_YEAR}).</p>
     `;
 
-    window.print();
+    // Wacht tot alle icoontjes op de afdrukpagina geladen én gedecodeerd zijn
+    // voordat het afdrukvenster opent — anders ontbreken ze soms in de print.
+    const imgs = Array.from(document.querySelectorAll("#print-sheet img"));
+    const ready = imgs.map(img => {
+      if (img.decode) return img.decode().catch(() => {});
+      return img.complete ? Promise.resolve() : new Promise(res => {
+        img.onload = res; img.onerror = res;
+      });
+    });
+    // Veiligheidsnet: druk sowieso af na 1,5 s, ook als een afbeelding blijft hangen.
+    const timeout = new Promise(res => setTimeout(res, 1500));
+    Promise.race([Promise.all(ready), timeout]).then(() => {
+      requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+    });
   }
 
   function render() {
