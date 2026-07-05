@@ -150,6 +150,7 @@
   .repair-box .r-label { font-size: 14px; font-weight: 600; margin: 0; color: var(--black); }
   .repair-box.active .r-label { color: #fff; }
   .repair-box .r-price { font-size: 12px; margin: 0 0 8px; color: rgba(0,0,0,0.4); }
+  .repair-footnote { font-size: 12px; color: rgba(0,0,0,0.4); line-height: 1.5; margin: 12px 0 0; }
   .repair-box.active .r-price { color: rgba(255,255,255,0.8); }
   .r-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .r-controls button {
@@ -353,6 +354,7 @@
       <p class="sub" style="margin-bottom:0;">Duid aan hoeveel herstellingen de klant realistisch per jaar zou (kunnen) hebben.</p>
       <div class="repair-grid" id="repair-grid"></div>
       <div id="repair-result"></div>
+      <p class="repair-footnote">* De vermelde prijzen zijn indicatief en gebaseerd op gemiddelde marktprijzen. De uiteindelijke kostprijs kan variëren afhankelijk van het merk, model en de aard van de herstelling.</p>
     </div>
 
     <div class="info-note">
@@ -711,18 +713,18 @@
   function renderRepairs(annualPrice) {
     const gridEl = document.getElementById("repair-grid");
     const defs = [
-      { key: "klein", label: "Kleine herstelling", price: 180 },
-      { key: "groot", label: "Grote herstelling", price: 250 },
-      { key: "levering", label: "Leveringskosten", price: 19 },
-      { key: "wisselstuk", label: "Wisselstuk via shop", price: 48 },
+      { key: "klein", label: "Kleine herstelling", price: 180, star: true },
+      { key: "groot", label: "Grote herstelling", price: 250, star: true },
+      { key: "levering", label: "Leveringskosten", price: 19, star: false },
+      { key: "wisselstuk", label: "Wisselstuk via shop", price: 48, star: true },
     ];
 
-    gridEl.innerHTML = defs.map(({ key, label, price }) => {
+    gridEl.innerHTML = defs.map(({ key, label, price, star }) => {
       const active = repairs[key] > 0;
       return `
         <div class="repair-box ${active ? 'active' : ''}">
           <p class="r-label">${label}</p>
-          <p class="r-price">${price} € / stuk</p>
+          <p class="r-price">${price} €${star ? "*" : ""} / stuk</p>
           <div class="r-controls">
             <button onclick="changeRepair('${key}', -1)" ${repairs[key] === 0 ? "disabled" : ""}>−</button>
             <span class="r-count">${repairs[key]}</span>
